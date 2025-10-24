@@ -1,0 +1,361 @@
+{
+  "info": {
+    "name": "Financial Wallet System API",
+    "description": "API collection for the Financial Wallet System",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:3000/api/v1",
+      "type": "string"
+    },
+    {
+      "key": "token",
+      "value": "",
+      "type": "string"
+    }
+  ],
+  "item": [
+    {
+      "name": "Authentication",
+      "item": [
+        {
+          "name": "Register User",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"user@example.com\",\n  \"password\": \"password123\",\n  \"full_name\": \"John Doe\",\n  \"phone_number\": \"+2348012345678\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/auth/register",
+              "host": ["{{baseUrl}}"],
+              "path": ["auth", "register"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Login User",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"user@example.com\",\n  \"password\": \"password123\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/auth/login",
+              "host": ["{{baseUrl}}"],
+              "path": ["auth", "login"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Profile",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/auth/profile",
+              "host": ["{{baseUrl}}"],
+              "path": ["auth", "profile"]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Wallet",
+      "item": [
+        {
+          "name": "Get Balance",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/wallet/balance",
+              "host": ["{{baseUrl}}"],
+              "path": ["wallet", "balance"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Credit Wallet",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"amount\": 1000,\n  \"description\": \"Deposit\",\n  \"reference\": \"TXN-1234567890-ABCD\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/wallet/credit",
+              "host": ["{{baseUrl}}"],
+              "path": ["wallet", "credit"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Debit Wallet",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"amount\": 500,\n  \"description\": \"Withdrawal\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/wallet/debit",
+              "host": ["{{baseUrl}}"],
+              "path": ["wallet", "debit"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Transaction History",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/wallet/transactions?page=1&limit=20",
+              "host": ["{{baseUrl}}"],
+              "path": ["wallet", "transactions"],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "1"
+                },
+                {
+                  "key": "limit",
+                  "value": "20"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Transaction by Reference",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/wallet/transactions/:reference",
+              "host": ["{{baseUrl}}"],
+              "path": ["wallet", "transactions", ":reference"],
+              "variable": [
+                {
+                  "key": "reference",
+                  "value": "TXN-1234567890-ABCD"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Transfer Funds (by Email)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"recipient_email\": \"recipient@example.com\",\n  \"amount\": 1500,\n  \"description\": \"Payment for services\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/wallet/transfer",
+              "host": ["{{baseUrl}}"],
+              "path": ["wallet", "transfer"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Transfer Funds (by User ID)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"recipient_user_id\": \"e52584cc-3d2e-40fa-9cb7-778e3af5196d\",\n  \"amount\": 500,\n  \"description\": \"Transfer using user ID\",\n  \"reference\": \"TXN-CUSTOM-REF-001\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/wallet/transfer",
+              "host": ["{{baseUrl}}"],
+              "path": ["wallet", "transfer"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Transfer - Insufficient Balance (Error)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"recipient_email\": \"recipient@example.com\",\n  \"amount\": 999999,\n  \"description\": \"Large transfer to test insufficient balance\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/wallet/transfer",
+              "host": ["{{baseUrl}}"],
+              "path": ["wallet", "transfer"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Transfer - Invalid Recipient (Error)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"recipient_email\": \"nonexistent@example.com\",\n  \"amount\": 100,\n  \"description\": \"Transfer to non-existent user\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/wallet/transfer",
+              "host": ["{{baseUrl}}"],
+              "path": ["wallet", "transfer"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Transfer - Self Transfer (Error)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"recipient_email\": \"user@example.com\",\n  \"amount\": 100,\n  \"description\": \"Self transfer attempt\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/wallet/transfer",
+              "host": ["{{baseUrl}}"],
+              "path": ["wallet", "transfer"]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Health Check",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:3000/health",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "3000",
+          "path": ["health"]
+        }
+      },
+      "response": []
+    }
+  ]
+}
+
