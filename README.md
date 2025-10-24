@@ -256,8 +256,6 @@ To skip automatic migrations during `npm install` (e.g., in CI environments):
 SKIP_POSTINSTALL=true npm install
 ```
 
-For more details, see [scripts/README.md](scripts/README.md).
-
 ## API Documentation
 
 For complete API documentation, see [API_DOCUMENTATION.md](API_DOCUMENTATION.md).
@@ -414,6 +412,8 @@ The system uses the following tables:
 ## Project Structure
 
 ```
+ `tree  -L 3 -I 'node_modules|dist|.git|coverage' `
+
 financial-wallet-system/
 ├── src/
 │   ├── config/          # Configuration files
